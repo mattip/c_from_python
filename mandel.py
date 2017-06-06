@@ -68,7 +68,8 @@ def mandel(x, y, max_iters):
     return 255
 
 @jit
-def create_fractal(min_x, max_x, min_y, max_y, image, width, height, iters):
+def create_fractal(image, width, height, iters,
+                   min_x=-2.0, max_x=1.0, min_y=-1.0, max_y=1.0):
     pixel_size_x = (max_x - min_x) / width
     pixel_size_y = (max_y - min_y) / height
     for y in range(height):
@@ -95,7 +96,7 @@ else:
     fname += '_numpy'
     img_as_bytes = image
 s = timer()
-create_fractal(-2.0, 1.0, -1.0, 1.0, image, width, height, 20)
+create_fractal(image, width, height, 20)
 e = timer()
 print(e - s)
 if 0:
