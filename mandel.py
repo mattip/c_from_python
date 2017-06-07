@@ -1,4 +1,3 @@
-
 def mandel(x, y, max_iters, value):
     """
     Given the real and imaginary parts of a complex number,
@@ -15,4 +14,3 @@ def mandel(x, y, max_iters, value):
             return 0
     value[i] = 255
     return 1
-

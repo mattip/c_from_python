@@ -1,24 +1,6 @@
-/* Python
-def mandel(x, y, max_iters):
-    """
-    Given the real and imaginary parts of a complex number,
-    determine if it is a candidate for membership in the Mandelbrot
-    set given a fixed number of iterations.
-    """
-    i = 0
-    c = complex(x,y)
-    z = 0.0j
-    for i in range(max_iters):
-        z = z*z + c
-        if (z.real*z.real + z.imag*z.imag) >= 4:
-            return i
-
-    return 255
-*/
-
 #include <complex.h>
 
-int mandel(int x, int y, int max_iters, unsigned int * val)
+int mandel(float x, float y, int max_iters, unsigned int * val)
 {
     int i = 0;
     _Complex float c = CMPLX(x, y);
@@ -32,6 +14,6 @@ int mandel(int x, int y, int max_iters, unsigned int * val)
             return 0;
         }
     }
-    *val = 255;
+    *val = max_iters;
     return 1;
 }

@@ -1,2 +1,8 @@
 *.swp
 .ipynb_checkpoints/
+*.png
+*.pgm
+*.pyc
+main
+*.so
+.gdb_history

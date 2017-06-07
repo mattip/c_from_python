@@ -17,10 +17,7 @@ long timer_end(struct timespec start_time){
     return diffInNanos;
 }
 
-int mandel(int x, int y, int max_iters, unsigned int * val);
-
-void create_fractal(unsigned int * image, int width, int height, 
-                    int iters);
+#include "create_fractal.c"
 
 int main(int argc, const char *argv[], const char * env[])
 {
@@ -28,21 +25,26 @@ int main(int argc, const char *argv[], const char * env[])
     int height = 1000;
     int iters = 20;
     FILE * fid = NULL;
+    Img img;
     struct timespec vartime;
     long time_elapsed_nanos;
-    unsigned int * image = (unsigned int*)malloc(width * height * sizeof(unsigned int));
-    if (NULL == image)
+    img.width = width;
+    img.height = height;
+    img.data = (unsigned int*)malloc(width * height * sizeof(unsigned int));
+    if (NULL == img.data)
         return -1;
+
+    vartime = timer_start();
+    create_fractal(img, iters);
+    time_elapsed_nanos = timer_end(vartime);
+    fprintf(stdout, "create_fractal required %ld millisecs\n", time_elapsed_nanos / 1000000);
+
     fid = fopen("c.pgm", "wb");
     if (NULL == fid)
         return -2;
-    vartime = timer_start();
-    create_fractal(image, width, height, iters);
-    time_elapsed_nanos = timer_end(vartime);
-    fprintf(stdout, "create_fractal required %ld millisecs\n", time_elapsed_nanos / 1000000);
     pgm_writepgminit(fid, width, height, 255, 0);
     for (int i=0; i<height; i++)
-        pgm_writepgmrow(fid, image + width*i, width, 255, 0);
+        pgm_writepgmrow(fid, img.data + width*i, width, 255, 0);
     fclose(fid);
     return 0;
 }

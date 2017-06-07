@@ -1,17 +1,23 @@
-int mandel(int x, int y, int max_iters, unsigned int * val);
+int mandel(float x, float y, int max_iters, unsigned int * val);
 
-void create_fractal(unsigned int * image, int width, int height, 
-                    int iters) {
-    float pixel_size_x = 3.0 / width;
-    float pixel_size_y = 2.0 / height;
-    for (int y=0; y<height; y++) {
+typedef struct _Img{
+    int width;
+    int height;
+    int * data;
+} Img;
+
+
+void create_fractal(Img img,  int iters) {
+    float pixel_size_x = 3.0 / img.width;
+    float pixel_size_y = 2.0 / img.height;
+    for (int y=0; y < img.height; y++) {
         float imag = y * pixel_size_y - 1;
-        int yy = y * width;
-        for (int x=0; x<width; x++) {
+        int yy = y * img.width;
+        for (int x=0; x < img.width; x++) {
             float real = x * pixel_size_x - 2;
             unsigned int color;
             int ret = mandel(real, imag, iters, &color);
-            image[yy + x] = color;
+            img.data[yy + x] = color;
         }
     }
 }
