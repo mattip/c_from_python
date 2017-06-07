@@ -18,7 +18,7 @@ def mandel(x, y, max_iters):
 
 #include <complex.h>
 
-int mandel(int x, int y, int max_iters, unsigned char * val)
+int mandel(int x, int y, int max_iters, unsigned int * val)
 {
     int i = 0;
     _Complex float c = CMPLX(x, y);
