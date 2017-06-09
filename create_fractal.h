@@ -1,7 +1,7 @@
 typedef struct _Img{
     int width;
     int height;
-    int * data;
+    unsigned char * data;
 } cImg;
 
 

@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include "create_fractal.h"
 
 // call this function to start a nanosecond-resolution timer
 struct timespec timer_start(){
@@ -17,7 +18,6 @@ long timer_end(struct timespec start_time){
     return diffInNanos;
 }
 
-#include "create_fractal.c"
 
 int main(int argc, const char *argv[], const char * env[])
 {
@@ -25,7 +25,7 @@ int main(int argc, const char *argv[], const char * env[])
     int height = 1000;
     int iters = 20;
     FILE * fid = NULL;
-    Img img;
+    cImg img;
     struct timespec vartime;
     long time_elapsed_nanos;
     img.width = width;
