@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <pgm.h>
+#include <stdlib.h>
 #include <time.h>
 
 // call this function to start a nanosecond-resolution timer
@@ -30,7 +30,8 @@ int main(int argc, const char *argv[], const char * env[])
     long time_elapsed_nanos;
     img.width = width;
     img.height = height;
-    img.data = (unsigned int*)malloc(width * height * sizeof(unsigned int));
+    size_t written;
+    img.data = (unsigned char*)malloc(width * height * sizeof(unsigned char));
     if (NULL == img.data)
         return -1;
 
@@ -39,12 +40,10 @@ int main(int argc, const char *argv[], const char * env[])
     time_elapsed_nanos = timer_end(vartime);
     fprintf(stdout, "create_fractal required %ld millisecs\n", time_elapsed_nanos / 1000000);
 
-    fid = fopen("c.pgm", "wb");
+    fid = fopen("c.raw", "wb");
     if (NULL == fid)
         return -2;
-    pgm_writepgminit(fid, width, height, 255, 0);
-    for (int i=0; i<height; i++)
-        pgm_writepgmrow(fid, img.data + width*i, width, 255, 0);
+    written = fwrite(img.data, sizeof(unsigned char), width * height, fid);
     fclose(fid);
     return 0;
 }
