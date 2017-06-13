@@ -1,17 +1,10 @@
-#And for desert:
-import sys
-print(sys.executable)
-from timeit import default_timer as timer
-import cffi
-from PIL import Image
-
-ffi = cffi.FFI()
+from __future__ import print_function, division
 
 class Img(object):
     def __init__(self, width, height):
         self.width = width
         self.height = height
-        self.data = ffi.new('uint8_t[%d]' % (width*height,))
+        self.data = bytearray(width*height)
 
 def create_fractal(image, iters, func, oneval):
     ''' Call a function for each pixel in the image, where
@@ -45,15 +38,20 @@ def mandel(x, y, max_iters, value):
     value[0] = max_iters
     return max_iters
 
-# Pure python
-width = 1500
-height = 1000
-image = Img(width, height)
-s = timer()
-oneval = ffi.new('uint8_t[1]')
-create_fractal(image, 20, mandel, oneval)
-e = timer()
-pure_pypy = e - s
-print('pure pypy required {:.2f} millisecs'.format(pure_pypy))
-im = Image.fromarray(image.data.reshape(height, width))
-im.save('pypyy.png')
+if __name__ == '__main__':
+    from timeit import default_timer as timer
+    from PIL import Image
+    # Pure python
+    width = 1500
+    height = 1000
+    image = Img(width, height)
+    s = timer()
+    oneval = bytearray(1)
+    create_fractal(image, 20, mandel, oneval)
+    e = timer()
+    elapsed = e - s
+    import platform
+    imp = platform.python_implementation().lower()
+    print('pure {} required {:.2f} millisecs'.format(imp, 1000*elapsed))
+    im = Image.frombuffer("L", (width, height), image.data, "raw", "L", 0, 1)
+    im.save('{}.png'.format(imp))
