@@ -1,13 +1,6 @@
-int mandel(float x, float y, int max_iters, unsigned char * val);
+#include "create_fractal.h"
 
-typedef struct _Img{
-    int width;
-    int height;
-    unsigned char * data;
-} Img;
-
-
-void create_fractal(Img img,  int iters) {
+int create_fractal(Img img,  int iters) {
     float pixel_size_x = 3.0 / img.width;
     float pixel_size_y = 2.0 / img.height;
     int x, y;

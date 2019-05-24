@@ -26,7 +26,7 @@ int main(int argc, const char *argv[], const char * env[])
     int height = 1000;
     int iters = 20;
     FILE * fid = NULL;
-    cImg img;
+    Img img;
     size_t written;
 #ifdef CLOCK_PROCESS_CPUTIME_ID
     struct timespec vartime;
