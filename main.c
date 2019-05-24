@@ -27,13 +27,13 @@ int main(int argc, const char *argv[], const char * env[])
     int iters = 20;
     FILE * fid = NULL;
     cImg img;
+    size_t written;
 #ifdef CLOCK_PROCESS_CPUTIME_ID
     struct timespec vartime;
 #endif
     long time_elapsed_nanos;
     img.width = width;
     img.height = height;
-    size_t written;
     img.data = (unsigned char*)malloc(width * height * sizeof(unsigned char));
     if (NULL == img.data)
         return -1;
