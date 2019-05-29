@@ -5,6 +5,8 @@
 *.pyc
 main
 *.so
+*.o
+*.obj
 .gdb_history
 build/
 c.raw
