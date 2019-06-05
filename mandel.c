@@ -1,3 +1,4 @@
+#include "create_fractal.h"
 int mandel(float x, float y, int max_iters, unsigned char * val)
 {
     int i = 0;
