@@ -9,8 +9,9 @@ int mandel(float x, float y, int max_iters, unsigned char * val)
     for (i = 0; i < max_iters; i++)
     {
         /* in complex notation, z * z + c */
+	float prev_zR = zR;
         zR = zR * zR - zI * zI + cR;
-        zI = 2 * zR * zI + cI;
+        zI = 2 * prev_zR * zI + cI;
         if ((zR * zR + zI * zI) >= 4)
         {
             *val = i;
