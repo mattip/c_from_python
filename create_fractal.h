@@ -1,3 +1,4 @@
+#pragma once
 typedef struct _Img{
     int width;
     int height;
